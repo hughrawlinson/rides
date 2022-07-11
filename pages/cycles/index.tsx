@@ -14,13 +14,26 @@ const DynamicCycleMap = dynamic(() => import("../../lib/CycleMap"), {
 });
 
 function Cycle({ activity, route }: CycleProps) {
+  const hours = Math.floor(activity.elapsed_time / 60 / 60 - 1);
   return (
     <article>
       <h2>{new Date(activity.start_date).toLocaleDateString()}</h2>
-      <dl>
-        <dd>Distance</dd>
-        <dt>{(activity.distance / 1000).toFixed(2)}km</dt>
-      </dl>
+      <table>
+        <tbody>
+          <tr>
+            <td>Distance</td>
+            <td>{(activity.distance / 1000).toFixed(0)}km</td>
+          </tr>
+
+          <tr>
+            <td>Duration</td>
+            <td>
+              {hours > 0 ? `${hours}h` : ""}
+              {(activity.elapsed_time % 60).toFixed(0)}m
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <Suspense fallback={"...loading"}>
         <DynamicCycleMap
           center={activity.start_latlng}
