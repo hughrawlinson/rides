@@ -24,7 +24,7 @@ function avgPoint(points: [number, number][]): [number, number] {
     .map((v) => v / points.length) as [number, number];
 }
 
-const WIDTH = 900 - 1;
+const WIDTH = 900 - 2;
 const ASPECT_RATIO = 9 / 16;
 
 export default function CycleMap({ path }: CycleMapProps) {

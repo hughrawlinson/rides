@@ -37,6 +37,8 @@ function Cycle(props: CycleProps) {
     >
       <div
         style={{
+          borderRadius: "4px",
+          backdropFilter: "invert(4%)",
           padding: "20px 40px 40px 40px",
           borderTop: "1px solid #AAA",
           borderLeft: "1px solid #AAA",
