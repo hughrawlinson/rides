@@ -32,42 +32,57 @@ function Cycle(props: CycleProps) {
   return (
     <article
       style={{
-        padding: "20px 40px 40px 40px",
-        border: "1px solid #AAA",
         margin: "80px 0",
       }}
     >
-      <h2>{new Date(start_date).toLocaleDateString()}</h2>
-      <table>
-        <tbody>
-          <tr>
-            <td>Distance</td>
-            <td>{(distance / 1000).toFixed(0)}km</td>
-          </tr>
-          <tr>
-            <td>Time</td>
-            <td>
-              {elapsed_hours >= 1 ? `${elapsed_hours}h` : ""}
-              {((elapsed_time / 60) % 60).toFixed(0)}m
-            </td>
-          </tr>
-          <tr>
-            <td>Moving Time</td>
-            <td>
-              {moving_hours >= 1 ? `${moving_hours}h` : ""}
-              {((moving_time / 60) % 60).toFixed(0)}m
-            </td>
-          </tr>
-          <tr>
-            <td>Average Speed</td>
-            <td>{((average_speed / 1000) * 60 * 60).toFixed(2)}km/h</td>
-          </tr>
-        </tbody>
-      </table>
-      <hr style={{ margin: "40px 0", color: "#AAA" }} />
-      <Suspense fallback={"...loading"}>
-        <DynamicCycleMap path={route} />
-      </Suspense>
+      <div
+        style={{
+          padding: "20px 40px 40px 40px",
+          borderTop: "1px solid #AAA",
+          borderLeft: "1px solid #AAA",
+          borderRight: "1px solid #AAA",
+        }}
+      >
+        <h2>{new Date(start_date).toLocaleDateString()}</h2>
+        <table>
+          <tbody>
+            <tr>
+              <td>Distance</td>
+              <td>{(distance / 1000).toFixed(0)}km</td>
+            </tr>
+            <tr>
+              <td>Time</td>
+              <td>
+                {elapsed_hours >= 1 ? `${elapsed_hours}h` : ""}
+                {((elapsed_time / 60) % 60).toFixed(0)}m
+              </td>
+            </tr>
+            <tr>
+              <td>Moving Time</td>
+              <td>
+                {moving_hours >= 1 ? `${moving_hours}h` : ""}
+                {((moving_time / 60) % 60).toFixed(0)}m
+              </td>
+            </tr>
+            <tr>
+              <td>Average Speed</td>
+              <td>{((average_speed / 1000) * 60 * 60).toFixed(2)}km/h</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div
+        style={{
+          paddingLeft: "0.5px",
+          borderBottom: "1px solid #AAA",
+          borderLeft: "1px solid #AAA",
+          borderRight: "1px solid #AAA",
+        }}
+      >
+        <Suspense fallback={"...loading"}>
+          <DynamicCycleMap path={route} />
+        </Suspense>
+      </div>
     </article>
   );
 }
