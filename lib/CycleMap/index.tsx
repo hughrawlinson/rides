@@ -3,7 +3,6 @@ import "leaflet/dist/leaflet.css";
 import { MapContainer, Polyline, TileLayer } from "react-leaflet";
 
 interface CycleMapProps {
-  center: [number, number];
   path: [number, number][];
 }
 
@@ -25,10 +24,13 @@ function avgPoint(points: [number, number][]): [number, number] {
     .map((v) => v / points.length) as [number, number];
 }
 
-export default function CycleMap({ center, path }: CycleMapProps) {
+const WIDTH = 820;
+const ASPECT_RATIO = 9 / 16;
+
+export default function CycleMap({ path }: CycleMapProps) {
   return (
     <MapContainer
-      style={{ width: `500px`, height: `${(500 / 16) * 9}px` }}
+      style={{ width: `${WIDTH}px`, height: `${WIDTH * ASPECT_RATIO}px` }}
       center={avgPoint(path)}
       zoom={12}
       scrollWheelZoom={false}
