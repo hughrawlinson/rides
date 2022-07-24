@@ -12,6 +12,9 @@ interface CycleProps {
   distance: SummaryActivity["distance"];
   average_speed: SummaryActivity["average_speed"];
   route: StreamSet["latlng"]["data"];
+  location_city: SummaryActivity["location_city"];
+  elev_low: SummaryActivity["elev_low"];
+  elev_high: SummaryActivity["elev_high"];
 }
 
 const DynamicCycleMap = dynamic(() => import("../../lib/CycleMap"), {
@@ -26,6 +29,9 @@ function Cycle(props: CycleProps) {
     distance,
     average_speed,
     route,
+    location_city,
+    elev_low,
+    elev_high,
   } = props;
   const elapsed_hours = Math.floor(elapsed_time / 60 / 60);
   const moving_hours = Math.floor(moving_time / 60 / 60);
@@ -69,6 +75,18 @@ function Cycle(props: CycleProps) {
             <tr>
               <td>Average Speed</td>
               <td>{((average_speed / 1000) * 60 * 60).toFixed(2)}km/h</td>
+            </tr>
+            {location_city && (
+              <tr>
+                <td>City</td>
+                <td>{location_city}</td>
+              </tr>
+            )}
+            <tr>
+              <td>Elevation</td>
+              <td>
+                Between {elev_low}m below and {elev_high}m above sea level
+              </td>
             </tr>
           </tbody>
         </table>
@@ -128,6 +146,9 @@ export const getStaticProps: GetStaticProps<CycleListPageProps> = async () => {
       distance: activity.distance,
       route: route.latlng.data,
       average_speed: activity.average_speed,
+      location_city: activity.location_city,
+      elev_low: activity.elev_low,
+      elev_high: activity.elev_high,
     }));
 
     return { props: { type: "success", cycles: dataProps } };
