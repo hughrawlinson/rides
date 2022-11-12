@@ -20,17 +20,13 @@ const Home: NextPage = () => {
 
         <div className={styles.grid}>
           <Link passHref href="/cycles" className={styles.card}>
-
             <h2>Cycles &rarr;</h2>
             <p>Look at a list of the cycles I&apos;ve done</p>
-
           </Link>
 
           <Link passHref href="/cycles" className={styles.card}>
-
             <h2>...still Cycles &rarr;</h2>
             <p>That&apos;s the only page on the website</p>
-
           </Link>
 
           <Link passHref href="/cycles" className={styles.card}>
