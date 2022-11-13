@@ -1,3 +1,5 @@
+"use client";
+
 import { PathOptions } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, Polyline, TileLayer } from "react-leaflet";

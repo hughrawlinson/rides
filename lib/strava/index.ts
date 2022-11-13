@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { Strava } from "strava";
+import { DetailedActivity, Strava, StreamSet, SummaryActivity } from "strava";
 
 function ensureAvailable<T>(v: T | undefined): v is T {
   if (typeof v === undefined) {
@@ -11,7 +11,7 @@ function ensureAvailable<T>(v: T | undefined): v is T {
 const { STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET, STRAVA_REFRESH_TOKEN } =
   process.env;
 
-export async function getStravaData() {
+export async function getStravaData(): Promise<SummaryActivity[]> {
   if (!ensureAvailable<string>(STRAVA_CLIENT_ID)) {
     throw new Error("No good big bad");
   }
@@ -35,20 +35,45 @@ export async function getStravaData() {
   try {
     const activities = await strava.activities.getLoggedInAthleteActivities();
 
-    const activitiesWithStreams = (
-      await Promise.all(
-        activities.map(async (activity) => ({
-          activity,
-          route: await strava.streams.getActivityStreams({
-            id: activity.id,
-            keys: ["latlng"],
-          }),
-        }))
-      )
-    ).filter(Boolean);
-
-    return activitiesWithStreams;
+    return activities;
   } catch (e) {
     console.log(e);
   }
+  throw new Error("Failed to load activity from Strava");
+}
+
+export async function getStravaActivityAndMap(
+  id: number
+): Promise<{ activity: DetailedActivity; stream: StreamSet }> {
+  if (!ensureAvailable<string>(STRAVA_CLIENT_ID)) {
+    throw new Error("No good big bad");
+  }
+
+  if (!ensureAvailable<string>(STRAVA_CLIENT_SECRET)) {
+    throw new Error("No good big bad");
+  }
+
+  if (!ensureAvailable<string>(STRAVA_REFRESH_TOKEN)) {
+    throw new Error("No good big bad");
+  }
+
+  const config = {
+    client_id: STRAVA_CLIENT_ID,
+    client_secret: STRAVA_CLIENT_SECRET,
+    refresh_token: STRAVA_REFRESH_TOKEN,
+  };
+
+  const strava = new Strava(config);
+
+  try {
+    const activity = await strava.activities.getActivityById({ id });
+    const stream = await strava.streams.getActivityStreams({
+      id,
+      keys: ["latlng"],
+    });
+    return { activity, stream };
+  } catch (e) {
+    console.log(e);
+  }
+  throw new Error("Failed to load activity from Strava");
 }

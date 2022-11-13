@@ -1,18 +1,9 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
-const Home: NextPage = () => {
+export default function Home() {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Bicycle rides</title>
-        <meta name="description" content="I want to ride my bicycle" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className={styles.main}>
         <h1 className={styles.title}>I want to ride my bike</h1>
 
@@ -30,22 +21,16 @@ const Home: NextPage = () => {
           </Link>
 
           <Link passHref href="/cycles" className={styles.card}>
-
             <h2>No, seriously</h2>
             <p>There aren&apos;t any other pages my friend</p>
-
           </Link>
 
           <Link passHref href="/cycles" className={styles.card}>
-
             <h2>Didn&apos;t like any of the other links?</h2>
             <p>Ok, click this one.</p>
-
           </Link>
         </div>
       </main>
     </div>
   );
-};
-
-export default Home;
+}
