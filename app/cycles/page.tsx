@@ -5,7 +5,7 @@ export default async function CycleListPage() {
   const stravaData = await getStravaData();
   console.log(stravaData.map((d) => d.id));
 
-  const props: CycleProps[] = stravaData?.filter(Boolean)?.map((activity) => ({
+  const props: CycleProps[] = stravaData?.map((activity) => ({
     id: activity.id,
     elapsed_time: activity.elapsed_time,
     moving_time: activity.moving_time,
@@ -25,9 +25,11 @@ export default async function CycleListPage() {
       }}
     >
       <h1>Cycles</h1>
-      {props.map(({ id, ...props }) => {
-        return <Cycle key={id} id={id} {...props} />;
-      })}
+      {props
+        .map(({ id, ...props }) => {
+          return Boolean(id) && <Cycle key={id} id={id} {...props} />;
+        })
+        .filter(Boolean)}
     </section>
   );
 }
