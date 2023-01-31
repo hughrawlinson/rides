@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { StreamSet, SummaryActivity } from "strava";
-import CycleMap from "../CycleMap";
+// import CycleMap from "../CycleMap";
+import dynamic from "next/dynamic";
+
+const CycleMap = dynamic(() => import("../CycleMap"), { ssr: false });
 
 export interface CycleProps {
   id: SummaryActivity["id"];
