@@ -3,8 +3,9 @@ import { Cycle, CycleProps } from "../../lib/CycleComponent";
 
 export default async function CycleListPage() {
   const stravaData = await getStravaData();
+  console.log(stravaData.map((d) => d.id));
 
-  const props: CycleProps[] = stravaData?.map((activity) => ({
+  const props: CycleProps[] = stravaData?.filter(Boolean)?.map((activity) => ({
     id: activity.id,
     elapsed_time: activity.elapsed_time,
     moving_time: activity.moving_time,
