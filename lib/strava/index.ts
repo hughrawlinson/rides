@@ -37,7 +37,7 @@ export async function getStravaData(): Promise<SummaryActivity[]> {
 
     return activities;
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
   throw new Error("Failed to load activity from Strava");
 }
@@ -73,7 +73,7 @@ export async function getStravaActivityAndMap(
     });
     return { activity, stream };
   } catch (e) {
-    console.log(e);
+    console.error(e);
   }
   throw new Error("Failed to load activity from Strava");
 }

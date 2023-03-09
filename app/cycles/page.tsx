@@ -3,7 +3,6 @@ import { Cycle, CycleProps } from "../../lib/CycleComponent";
 
 export default async function CycleListPage() {
   const stravaData = await getStravaData();
-  console.log(stravaData.map((d) => d.id));
 
   const props: CycleProps[] = stravaData?.map((activity) => ({
     id: activity.id,
