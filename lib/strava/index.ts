@@ -44,7 +44,11 @@ export async function getStravaData(): Promise<SummaryActivity[]> {
 
 export async function getStravaActivityAndMap(
   id: number
-): Promise<{ activity: DetailedActivity; stream: StreamSet }> {
+): Promise<{ activity: DetailedActivity; stream: StreamSet } | null> {
+  if (!id) {
+    return null;
+  }
+
   if (!ensureAvailable<string>(STRAVA_CLIENT_ID)) {
     throw new Error("No good big bad");
   }
